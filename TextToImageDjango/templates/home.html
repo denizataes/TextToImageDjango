@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TextToImage</title>
+    <style>
+        /* CSS ile question metin giriş alanını özelleştirin */
+        input[name="question"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* CSS ile "Ask" butonunu özelleştirin */
+        button[type="submit"] {
+            background-color: #007bff; /* Arka plan rengi */
+            color: #fff; /* Yazı rengi */
+            padding: 10px 20px; /* İç boşluk */
+            font-size: 18px; /* Yazı tipi boyutu */
+            border: none; /* Kenarlık yok */
+            border-radius: 5px;
+            cursor: pointer; /* İşaretçi tipi el işareti */
+        }
+
+        /* CSS ile cevap alanını özelleştirin */
+        #answer {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        /* CSS ile "Answer" başlığını özelleştirin */
+        h1 {
+            color: #007bff; /* Başlık rengi */
+        }
+    </style>
+</head>
+<body>
+    <h1>Question</h1>
+    <form method="get" action="{% url 'getAnswer' %}">
+        {% csrf_token %}
+        <input type="text" name="question" id="question" placeholder="Ask your question to llama2..." required>
+        <br><br>
+        <button type="submit">Get Image</button>
+    </form>
+
+    <h1>Answer</h1>
+    <div id="answer">
+        {% if obj %}
+           <img src="{{ obj.image.url }}" alt="{{ obj.query }}">
+        {% else %}
+            <img src="{% static 'images/image-8.jpg' %}" alt="{{ obj.query }}">
+            <!-- ...
+                 Handle other cases as needed
+            -->
+        {% endif %}
+    </div>
+    
+</body>
+</html>
