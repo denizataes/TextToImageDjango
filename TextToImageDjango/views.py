@@ -5,7 +5,7 @@ import openai, os, requests
 from dotenv import load_dotenv
 from django.core.files.base import ContentFile
 from .models import TextToImage
-api_key = "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"
+api_key = ""
 openai.api_key = api_key
 def home(request):
     return render(request, "home.html")
